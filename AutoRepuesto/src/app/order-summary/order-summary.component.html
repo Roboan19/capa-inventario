@@ -1,0 +1,18 @@
+<div class="container mt-4">
+    <h2>Resumen de la Orden</h2>
+  
+    <div *ngIf="cartItems.length > 0; else emptyCart">
+      <ul>
+        <li *ngFor="let item of cartItems">
+          {{ item.nombre }} - {{ item.precio | currency }}
+        </li>
+      </ul>
+  
+      <p><strong>Total: </strong>{{ total | currency }}</p>
+    </div>
+  
+    <ng-template #emptyCart>
+      <p>No hay productos en el carrito</p>
+    </ng-template>
+  </div>
+  

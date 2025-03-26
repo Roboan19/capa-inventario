@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "inventario": {
+    "AutoRepuesto": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/inventario",
+            "outputPath": "dist/auto-repuesto",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "inventario:build:production"
+              "buildTarget": "AutoRepuesto:build:production"
             },
             "development": {
-              "buildTarget": "inventario:build:development"
+              "buildTarget": "AutoRepuesto:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,6 +99,6 @@
     }
   },
   "cli": {
-    "analytics": "83ff1ac1-50e0-48fc-b9a9-3f392a96ecb9"
+    "analytics": "dbaa5cb2-ed2f-42cb-b59a-cf6b64e7a411"
   }
 }

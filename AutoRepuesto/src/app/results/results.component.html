@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h3>Resultados de la Búsqueda</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Motor</th>
+        <th>Año</th>
+        <th>Precio</th>
+        <th>Acción</th> <!-- Columna para el botón de agregar -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of results">
+        <td>{{ item.codigo }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.descripcion }}</td>
+        <td>{{ item.marca }}</td>
+        <td>{{ item.modelo }}</td>
+        <td>{{ item.motor }}</td>
+        <td>{{ item.anioauto }}</td>
+        <td>{{ item.precio | currency }}</td>
+        <td>
+          <button (click)="onAddToCart(item)" class="btn btn-primary">Agregar al Carrito</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
