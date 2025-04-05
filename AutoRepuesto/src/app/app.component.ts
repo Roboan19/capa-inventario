@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
 import { SearchComponent } from './search/search.component';
 import { CartComponent } from './cart/cart.component';
-import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { CommonModule } from '@angular/common'; // Asegúrate de tener CommonModule
-import { HttpClientModule } from '@angular/common/http';  // Importar HttpClientModule
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,  // Asegúrate de importar CommonModule
-    HttpClientModule,  // Esto habilita el uso de HttpClient y sus pipes como 'currency'
+    CommonModule,
+    HttpClientModule,
     SearchComponent,
     CartComponent,
-    OrderSummaryComponent,
   ],
   template: `
-    <app-search></app-search>
-    <app-cart></app-cart>
-    <app-order-summary></app-order-summary>
-  `,
+    <div style="margin-bottom: 1rem;">
+      <button (click)="currentView = 'search'">Buscar Productos</button>
+      <button (click)="currentView = 'cart'">Ver Carrito</button>
+    </div>
+
+    <app-search *ngIf="currentView === 'search'"></app-search>
+    <app-cart *ngIf="currentView === 'cart'"></app-cart>
+  `
 })
-export class AppComponent {}
+export class AppComponent {
+  currentView: 'search' | 'cart' = 'search';
+}

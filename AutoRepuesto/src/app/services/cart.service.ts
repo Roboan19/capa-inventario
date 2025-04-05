@@ -1,52 +1,109 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CartItem } from './cart-item.model'; // Asegúrate de importar la interfaz
+import { CartItem } from './cart-item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartSubject: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>(this.getCart()); // Inicializamos con los elementos del carrito
-  private cart: CartItem[] = [];  // Almacena los productos en el carrito
+  private cartSubject: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>(this.getCart());
+  private cart: CartItem[] = [];
 
   constructor() {}
 
-  // Verificar si estamos en un entorno de navegador
-  private isBrowser() {
+  private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
   }
 
-  // Agregar un producto al carrito
-  addToCart(product: CartItem) {
+  addToCart(product: CartItem): void {
     if (this.isBrowser()) {
-      const currentCart = this.getCart();  // Obtén el carrito actual
-      currentCart.push(product);  // Agrega el nuevo producto
-      localStorage.setItem('cart', JSON.stringify(currentCart));  // Guarda el carrito actualizado en localStorage
-      this.cartSubject.next(currentCart);  // Emite el nuevo carrito a los suscriptores
-      console.log('Producto agregado al carrito:', product);  // Verificar en consola
+      const currentCart = this.getCart();  
+      const existingItem = currentCart.find((item: CartItem) => item.codigo === product.codigo);
+
+      if (existingItem) {
+        existingItem.cantidad++;
+      } else {
+        product.cantidad = 1;
+        currentCart.push(product);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(currentCart));  
+      this.cartSubject.next(currentCart);  
     }
   }
 
-  // Obtener los productos del carrito como un Observable
   getCartItems() {
-    return this.cartSubject.asObservable();  // Devolvemos un Observable del carrito
+    return this.cartSubject.asObservable();
   }
 
-  // Método para obtener los productos del carrito desde localStorage
-  getCart() {
-    if (this.isBrowser()) {  // Solo acceder a localStorage si estamos en el navegador
+  getCart(): CartItem[] {
+    if (this.isBrowser()) {
       const cart = localStorage.getItem('cart');
-      return cart ? JSON.parse(cart) : [];  // Devuelve el carrito o un arreglo vacío si no hay nada
+      return cart ? JSON.parse(cart) : [];
     }
-    return [];  // Retorna un arreglo vacío si no estamos en un entorno de navegador
+    return [];
   }
 
-  // Vaciar el carrito
-  clearCart() {
-    if (this.isBrowser()) {  // Solo acceder a localStorage si estamos en el navegador
+  // Método para calcular el sub-total
+  getSubtotal(): number {
+    const currentCart = this.getCart();
+    return currentCart.reduce((total: number, item: CartItem): number => total + (item.precio * item.cantidad), 0);
+  }
+
+  // Método para calcular el impuesto (7%)
+  getTax(): number {
+    const subtotal: number = this.getSubtotal();
+    return subtotal * 0.07;  // 7% de impuesto
+  }
+
+  // Método para calcular el total (sub-total + impuesto)
+  getTotal(): number {
+    return this.getSubtotal() + this.getTax();
+  }
+
+  clearCart(): void {
+    if (this.isBrowser()) {
       this.cart = [];
       localStorage.removeItem('cart');
-      this.cartSubject.next(this.cart);  // Emitir carrito vacío a los suscriptores
+      this.cartSubject.next(this.cart);
+    }
+  }
+
+  removeFromCart(item: CartItem): void {
+    if (this.isBrowser()) {
+      const currentCart = this.getCart();
+      const updatedCart = currentCart.filter((cartItem: CartItem) => cartItem.codigo !== item.codigo);
+
+      localStorage.setItem('cart', JSON.stringify(updatedCart));  
+      this.cartSubject.next(updatedCart);
+    }
+  }
+
+  increaseQuantity(item: CartItem): void {
+    if (this.isBrowser()) {
+      const currentCart = this.getCart();
+      const existingItem = currentCart.find((cartItem: CartItem) => cartItem.codigo === item.codigo);
+
+      if (existingItem) {
+        existingItem.cantidad++;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(currentCart));  
+      this.cartSubject.next(currentCart);  
+    }
+  }
+
+  decreaseQuantity(item: CartItem): void {
+    if (this.isBrowser()) {
+      const currentCart = this.getCart();
+      const existingItem = currentCart.find((cartItem: CartItem) => cartItem.codigo === item.codigo);
+
+      if (existingItem && existingItem.cantidad > 1) {
+        existingItem.cantidad--;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(currentCart));  
+      this.cartSubject.next(currentCart);  
     }
   }
 }

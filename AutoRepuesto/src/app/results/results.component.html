@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h3>Resultados de la Búsqueda</h3>
   <table class="table table-bordered">
-    <thead>
+    <thead class="table-light">
       <tr>
         <th>Código</th>
         <th>Nombre</th>
@@ -11,6 +11,7 @@
         <th>Motor</th>
         <th>Año</th>
         <th>Precio</th>
+        <th>Cantidad</th> <!-- Columna para la cantidad -->
         <th>Acción</th> <!-- Columna para el botón de agregar -->
       </tr>
     </thead>
@@ -24,6 +25,9 @@
         <td>{{ item.motor }}</td>
         <td>{{ item.anioauto }}</td>
         <td>{{ item.precio | currency }}</td>
+        <td>
+          <input type="number" [(ngModel)]="item.cantidad" min="1" class="form-control" style="width: 80px;" />
+        </td>
         <td>
           <button (click)="onAddToCart(item)" class="btn btn-primary">Agregar al Carrito</button>
         </td>

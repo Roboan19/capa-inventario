@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../services/cart.service';  // Asegúrate de importar el servicio
-import { CartItem } from '../services/cart-item.model';  // Asegúrate de importar la interfaz
-import { Subscription } from 'rxjs';  // Importa Subscription para manejar la suscripción
+import { CartService } from '../services/cart.service';
+import { CartItem } from '../services/cart-item.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -12,27 +12,49 @@ import { Subscription } from 'rxjs';  // Importa Subscription para manejar la su
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  cartItems: CartItem[] = [];  // Cambiar el tipo de 'any' a 'CartItem[]'
+  cartItems: CartItem[] = [];
+  subtotal: number = 0;
+  tax: number = 0;
+  total: number = 0;
   private cartSubscription: Subscription | undefined;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    // Nos suscribimos al Observable que emite el carrito actualizado
     this.cartSubscription = this.cartService.getCartItems().subscribe((items: CartItem[]) => {
-      this.cartItems = items;  // Actualizamos el carrito en el componente
+      this.cartItems = items;
+      this.updateTotals();  // Actualizar los totales cada vez que se actualicen los elementos
     });
   }
 
   ngOnDestroy() {
-    // Nos desuscribimos cuando el componente se destruya
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
     }
   }
 
-  // Método para vaciar el carrito
   clearCart() {
     this.cartService.clearCart();
+  }
+
+  removeFromCart(item: CartItem) {
+    this.cartService.removeFromCart(item);
+  }
+
+  increaseQuantity(item: CartItem) {
+    this.cartService.increaseQuantity(item);
+    this.updateTotals();  // Recalcular los totales después de aumentar la cantidad
+  }
+
+  decreaseQuantity(item: CartItem) {
+    this.cartService.decreaseQuantity(item);
+    this.updateTotals();  // Recalcular los totales después de disminuir la cantidad
+  }
+
+  // Método para actualizar los totales
+  updateTotals() {
+    this.subtotal = this.cartService.getSubtotal();
+    this.tax = this.cartService.getTax();
+    this.total = this.cartService.getTotal();
   }
 }
