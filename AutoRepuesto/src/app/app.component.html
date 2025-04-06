@@ -1,17 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-  <a class="navbar-brand" routerLink="/">AutoRepuesto</a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/">Buscar Productos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/carrito">Carrito</a>
-      </li>
-    </ul>
+<header class="bg-light shadow-sm py-3">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a class="navbar-brand text-primary fw-bold fs-4" routerLink="/">
+      <span class="text-dark">Auto</span>Repuesto
+    </a>
+    <nav>
+      <ul class="nav nav-underline">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active">
+            Buscar
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link position-relative" routerLink="/carrito" routerLinkActive="active">
+            Carrito
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+              0
+              <span class="visually-hidden">items in cart</span>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/factura" routerLinkActive="active"> <!-- Ruta a la factura -->
+            Factura
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
-</nav>
+</header>
 
 <div class="container mt-4">
-  <router-outlet></router-outlet>
+  <main class="py-3">
+    <router-outlet></router-outlet> <!-- Esto es donde las vistas se mostrarán -->
+  </main>
+  <footer class="py-4 mt-5 bg-light border-top text-center text-muted">
+    <p class="mb-0">&copy; 2025 AutoRepuesto</p>
+  </footer>
 </div>

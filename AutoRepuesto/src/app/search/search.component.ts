@@ -8,7 +8,7 @@ import { CartService } from '../services/cart.service';  // Importar el CartServ
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, ResultsComponent],
+  imports: [CommonModule, FormsModule, ResultsComponent], // Asegúrate de importar correctamente
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })

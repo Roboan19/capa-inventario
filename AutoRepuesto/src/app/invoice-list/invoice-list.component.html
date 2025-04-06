@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Lista de Facturas</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>{{ invoice.id }}</td>
+          <td>{{ invoice.cliente }}</td>
+          <td>{{ invoice.total }}</td>
+          <td>{{ invoice.fecha }}</td>
+          <td><button class="btn btn-info">Ver</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

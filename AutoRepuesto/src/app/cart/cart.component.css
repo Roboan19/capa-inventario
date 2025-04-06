@@ -1,67 +1,31 @@
-/* Estilos para la tabla enrejada */
-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  td {
-    background-color: #fff;
-  }
-  
-  /* Estilos para los botones */
-  button {
-    margin: 0 5px;
-    border-radius: 5px;
-  }
-  
-  .btn-sm {
-    padding: 5px 10px;
-  }
-  
-  /* Estilo para el botón "Vaciar Carrito" */
-  .btn-danger {
-    background-color: #f44336;
-    color: white;
-    border: none;
-  }
-  
-  .btn-warning {
-    background-color: #ff9800;
-    color: white;
-    border: none;
-  }
-  
-  .btn-success {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-  }
-  
-  .btn-danger:hover, .btn-warning:hover, .btn-success:hover {
-    opacity: 0.8;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  
-  /* Espaciado adicional */
-  .mt-3 {
-    margin-top: 20px;
-  }
-  
-  .mt-4 {
-    margin-top: 40px;
-  }
-  
+/* Estilos personalizados para el Invoice Component */
+
+.card {
+  border-radius: 0.5rem;
+}
+
+.card-header h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.card-title i {
+  font-size: 1.1rem;
+}
+
+.table th {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.75rem;
+  white-space: nowrap;
+}
+
+.table td {
+  font-size: 0.9rem;
+  padding: 0.75rem;
+}
+
+.list-group-item {
+  padding: 0.75rem 0;
+}

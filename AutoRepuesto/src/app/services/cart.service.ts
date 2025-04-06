@@ -19,18 +19,21 @@ export class CartService {
     if (this.isBrowser()) {
       const currentCart = this.getCart();  
       const existingItem = currentCart.find((item: CartItem) => item.codigo === product.codigo);
-
+  
       if (existingItem) {
-        existingItem.cantidad++;
+        // Sumamos la cantidad que viene desde el componente
+        existingItem.cantidad += product.cantidad || 1;
       } else {
-        product.cantidad = 1;
+        // Si no hay cantidad especificada, ponemos 1 por defecto
+        product.cantidad = product.cantidad || 1;
         currentCart.push(product);
       }
-
+  
       localStorage.setItem('cart', JSON.stringify(currentCart));  
       this.cartSubject.next(currentCart);  
     }
   }
+  
 
   getCartItems() {
     return this.cartSubject.asObservable();

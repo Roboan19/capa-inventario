@@ -5,7 +5,6 @@ import { CartService } from '../services/cart.service';  // Importar el servicio
 
 @Component({
   selector: 'app-results',
-  standalone: true,
   imports: [CommonModule, FormsModule],  // Agregar FormsModule aquí
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']

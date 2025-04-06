@@ -1,0 +1,47 @@
+<div class="invoice-form">
+    <h3>Crear Factura</h3>
+  
+    <!-- Formulario para la información del cliente -->
+    <div class="form-group">
+      <label for="cliente">Cliente</label>
+      <input id="cliente" type="text" [(ngModel)]="cliente" class="form-control" placeholder="Ingrese el nombre del cliente" />
+    </div>
+  
+    <hr />
+  
+    <!-- Formulario para agregar un ítem a la factura -->
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" [(ngModel)]="descripcion" class="form-control" placeholder="Descripción del producto" />
+    </div>
+  
+    <div class="form-group">
+      <label for="cantidad">Cantidad</label>
+      <input id="cantidad" type="number" [(ngModel)]="cantidad" class="form-control" placeholder="Cantidad" min="1" />
+    </div>
+  
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input id="precio" type="number" [(ngModel)]="precio" class="form-control" placeholder="Precio" min="0" />
+    </div>
+  
+    <button (click)="addItem()" class="btn btn-primary mt-2">Agregar Ítem</button>
+  
+    <hr />
+  
+    <h4>Items Agregados</h4>
+    <ul>
+      <li *ngFor="let item of items">
+        {{ item.descripcion }} - {{ item.cantidad }} x {{ item.precio | currency }} = {{ item.cantidad * item.precio | currency }}
+      </li>
+    </ul>
+  
+    <div>
+      <strong>Total: {{ total | currency }}</strong>
+    </div>
+  
+    <hr />
+  
+    <button (click)="createInvoice()" class="btn btn-success mt-3">Crear Factura</button>
+  </div>
+  
